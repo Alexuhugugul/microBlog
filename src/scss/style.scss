@@ -1,0 +1,25 @@
+@import "index";
+@import "main";
+@import "key";
+@import "month";
+@import "collections";
+@import "day";
+
+@font-face {
+    font-family: "Yusei Magic";
+    src: url("/src/asset/fonts/YuseiMagic-Regular.woff") format("woff");
+}
+@font-face {
+    font-family: "Nunito";
+    src: url("/src/asset/fonts/Nunito-Italic.woff") format("woff");
+}
+
+body {
+    background-color: rgb(238, 234, 229);
+    font-family: "Nunito";
+    margin: 0 20%;
+    overflow: auto;
+}
+button {
+    font-family: "Nunito";
+}

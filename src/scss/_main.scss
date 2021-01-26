@@ -1,0 +1,91 @@
+$header-color: rgb(238, 175, 81);
+$header-color_hover: rgb(187, 115, 6);
+
+.main-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .main-text {
+        color: $header-color;
+        text-align: center;
+        font-size: 100px;
+        margin-bottom: 50px;
+    }
+}
+
+.main-title {
+    color: $header-color_hover;
+    text-align: center;
+}
+
+.main-future-plans,
+.main-collections,
+.main-key {
+    height: 48px;
+    font-weight: bold;
+    font-size: 23px;
+    background-color: rgb(238, 234, 229);
+    border: 1px solid $header-color;
+    color: $header-color_hover;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+}
+
+.main-future-plans:hover,
+.main-collections:hover,
+.main-key:hover {
+    background-color: $header-color_hover;
+    border: 1px solid $header-color_hover;
+    color: rgb(238, 234, 229);
+}
+
+.main-dropdown {
+    display: flex;
+    flex-direction: column;
+    .main-dropdown_button {
+        height: 48px;
+        font-weight: bold;
+        font-size: 23px;
+        background-color: rgb(238, 234, 229);
+        border: 1px solid $header-color;
+        color: $header-color_hover;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        outline: none;
+    }
+    .main-dropdown_button:hover {
+        background-color: $header-color_hover;
+        border: 1px solid $header-color_hover;
+        color: rgb(238, 234, 229);
+    }
+    .main-dropdown_list {
+        display: flex;
+        flex-direction: column;
+        display: none;
+        a {
+            width: 100%;
+        }
+        .main-dropdown_item {
+            background-color: rgb(238, 234, 229);
+            border: 1px solid $header-color;
+            color: $header-color_hover;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            outline: none;
+            width: 100%;
+        }
+        .main-dropdown_item:hover {
+            background-color: $header-color_hover;
+            border: 1px solid $header-color_hover;
+            color: rgb(238, 234, 229);
+        }
+    }
+}

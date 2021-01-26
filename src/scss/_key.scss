@@ -1,0 +1,32 @@
+$header-color: rgb(238, 175, 81);
+$header-color_hover: rgb(187, 115, 6);
+
+.key-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .key-text {
+        color: $header-color;
+        text-align: center;
+        font-size: 100px;
+        margin-bottom: 50px;
+    }
+}
+
+.key-title {
+    color: $header-color_hover;
+    text-align: center;
+}
+.key-list {
+    .key_item {
+        svg{
+            margin-right: 20px;
+        }
+        font-size: 20px;
+        list-style-type: none;
+        color: black;
+        margin-bottom: 10px;
+    }
+}
