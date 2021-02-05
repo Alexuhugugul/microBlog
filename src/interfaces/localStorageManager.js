@@ -111,10 +111,34 @@ export default class localStorageManager {
             if (!localStorage.hasOwnProperty(key)) {
                 continue;
             }
-            obj[key] = window.localStorage.getItem(key);
+            if (key === "loglevel:webpack-dev-server") {
+                continue;
+            }
+            const itemLocalStorage = window.localStorage.getItem(key);
+            obj[key] = JSON.parse(itemLocalStorage)
         }
-
         return obj;
+    }
+
+    getDataCalendars() {
+        const storeCalendars = window.localStorage.calendar;
+        const calendar = JSON.parse(storeCalendars);
+
+        return calendar;
+    }
+
+    getDataKeys(){
+        const storeKeys = window.localStorage.keys;
+        const keys = JSON.parse(storeKeys);
+
+        return keys;
+    }
+
+    getDataCollections(){
+        const storeCollections = window.localStorage.collections;
+        const collections = JSON.parse(storeCollections);
+
+        return collections;
     }
 
     removeItem(id) {
@@ -185,9 +209,39 @@ export default class localStorageManager {
         localStorage.setItem("collections", JSON.stringify(collections));
     }
 
-    setNewCollection(date,name){
-        const collections=JSON.parse(localStorage.collections);
-        const currentDate = collections.find(collection=>collection.date===date)
-        console.log(date,name,currentDate)
+    setNewCollection(date, name) {
+        const collections = JSON.parse(localStorage.collections);
+
+        const lastKey = collections.length;
+        const newCollection = {
+            "id": lastKey,
+            date,
+            name,
+            "select_date": []
+        }
+        collections.push(newCollection)
+        localStorage.setItem("collections", JSON.stringify(collections));
+
+    }
+
+    deleteCollection(date, name) {
+        const collections = JSON.parse(localStorage.collections);
+        const othersCalendars = collections.filter(el => el.date !== date)
+        const filterByDate = collections.filter(el => el.date === date)
+        const filterByName = filterByDate.filter(el => el.name !== name)
+        const obj = []
+        obj.push(...othersCalendars)
+        obj.push(...filterByName)
+
+        localStorage.setItem("collections", JSON.stringify(obj));
+    }
+
+    renameCollection(date, name, oldName) {
+        const collections = JSON.parse(localStorage.collections);
+        const filterByDate = collections.filter(el => el.date === date)
+        const oldNameCollection = filterByDate.find(el => el.name === oldName)
+        oldNameCollection.name = name
+        localStorage.setItem("collections", JSON.stringify(collections));
+
     }
 }

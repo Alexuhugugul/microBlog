@@ -42,13 +42,13 @@ module.exports = {
     },
     watch: true,
     plugins: [
-        new HtmlWebpackPlugin({ template: './src/view/main.html', filename: 'view/main.html' }),
-        new HtmlWebpackPlugin({ template: './src/view/key.html', filename: 'view/key.html' }),
-        new HtmlWebpackPlugin({ template: './src/view/month.html', filename: 'view/month?page=' }),
-        new HtmlWebpackPlugin({ template: './src/view/collection.html', filename: 'view/collection?page=' }),
-        new HtmlWebpackPlugin({ template: './src/view/day.html', filename: 'view/day?page=' }),
-        new HtmlWebpackPlugin({ template: './src/view/creatorTask.html', filename: 'view/creatorTask?page=' }),
-        new HtmlWebpackPlugin({ template: './src/view//creatorCollection.html', filename: 'view/creatorCollection?page=' }),
+        new HtmlWebpackPlugin({ template: './src/pages/main.html', filename: 'pages/main.html' }),
+        new HtmlWebpackPlugin({ template: './src/pages/keys.html', filename: 'pages/keys.html' }),
+        new HtmlWebpackPlugin({ template: './src/pages/month.html', filename: 'pages/month?page=' }),
+        new HtmlWebpackPlugin({ template: './src/pages/collection.html', filename: 'pages/collection?page=' }),
+        new HtmlWebpackPlugin({ template: './src/pages/day.html', filename: 'pages/day?page=' }),
+        new HtmlWebpackPlugin({ template: './src/pages/creatorTask.html', filename: 'pages/creatorTask?page=' }),
+        new HtmlWebpackPlugin({ template: './src/pages/creatorCollection.html', filename: 'pages/creatorCollection?page=' }),
         new HtmlWebpackPlugin({ template: './src/index.html' }),
     ]
 

@@ -23,6 +23,18 @@ class StoreManager {
         return this.bd.getAllItem()
     }
 
+    getDataCalendars(){
+        return this.bd.getDataCalendars();
+    }
+
+    getDataKeys(){
+        return this.bd.getDataKeys();
+    }
+
+    getDataCollections(){
+        return this.bd.getDataCollections();
+    }
+
     setCalendar(value) {
         return this.bd.setItemCalendar(value);
     }
@@ -42,6 +54,13 @@ class StoreManager {
     }
     setNewCollection(date,name){
         return this.bd.setNewCollection(date,name)
+    }
+    deleteCollection(date,name){
+        return this.bd.deleteCollection(date,name)
+    }
+
+    renameCollection(date,name,oldName){
+        return this.bd.renameCollection(date,name,oldName)
     }
 }
 

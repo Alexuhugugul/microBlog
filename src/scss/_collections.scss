@@ -34,4 +34,8 @@ $header-color_hover: rgb(187, 115, 6);
         background-color:red;
         border-radius: 50%;
     }
+    .calendar-delete,.calendar-edit,.calendar-title-save{
+        cursor: pointer;
+        margin-left: 10px;
+    }
 }

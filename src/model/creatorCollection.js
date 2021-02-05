@@ -1,10 +1,10 @@
 import replaceUrl from '../utils/replaceUrl';
 
-export function creatorCollection(instance){
-    const formCollection=document.querySelector(".collection-body");
+export function creatorCollection(instance) {
+    const formCollection = document.querySelector(".collection-body");
     const url = window.location.search;
     const date = replaceUrl(url, /[?page=]/g);
-  
+
 
 
     if (formCollection.addEventListener) {
@@ -13,9 +13,10 @@ export function creatorCollection(instance){
         formCollection.attachEvent('onsubmit', submit);
     }
 
-    function submit(event){
+    function submit(event) {
         event.preventDefault();
-const name=formCollection.querySelector(".create-text").value
-        instance.setNewCollection(date,name)
+        const name = formCollection.querySelector(".create-text").value
+        instance.setNewCollection(date, name)
+        window.history.back();
     }
 }
