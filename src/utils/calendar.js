@@ -9,6 +9,7 @@ export function calendar(domElement, selectedDates, statusCalendar) {
   const selectedMonth = window.location.search;
   const hash = replaceUrl(selectedMonth, /[?page=,.html]/g);
   const year = hash.slice((hash.length - 4));
+  console.log(hash)
   const monthYear = hash.slice(0, (hash.length - 5));
   const today = new Date();
   var D1 = new Date(year, monthYear),
@@ -32,16 +33,16 @@ export function calendar(domElement, selectedDates, statusCalendar) {
 
     if (!isTodayDate) {
       if (statusCalendar) {
-        calendar1 += `<td><a href="/view/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;
+        calendar1 += `<td><a href="/pages/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;
       } else {
         calendar1 += `<td>` + i;
       }
 
     } else {
       if (statusCalendar && (monthYear == today.getMonth()) && (year == today.getFullYear())) {
-        calendar1 += `<td id="today"><a href="/view/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;  // сегодняшней дате можно задать стиль CSS
+        calendar1 += `<td id="today"><a href="/pages/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;  // сегодняшней дате можно задать стиль CSS
       } else if (statusCalendar && (monthYear !== today.getMonth()) && (year !== today.getFullYear())) {
-        calendar1 += `<td id="today"><a href="/view/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;  // сегодняшней дате можно задать стиль CSS
+        calendar1 += `<td id="today"><a href="/pages/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;  // сегодняшней дате можно задать стиль CSS
       }
       else {
         calendar1 += `<td ">` + i

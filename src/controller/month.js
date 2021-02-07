@@ -1,13 +1,13 @@
+import Day from '../models/Day';
+import Collection from '../models/Collection';
 import viewMonth from '../view/month';
-import MonthPage from '../model/month.js';
 
 
-export default function actionMonthPage(instanceStore) {
+export default function actionMonthPage() {
     const view = new viewMonth();
-    const model = new MonthPage();
-    const listCalendars = model.getDataCalendars();
-    const listCollections = model.getDataCollections();
-    
-    view.createMonth(listCalendars,listCollections);
+    const modelDay = Day.findAll();
+    const modelCollection = Collection.findAll();
+
+    view.createMonth(modelDay, modelCollection);
 
 }

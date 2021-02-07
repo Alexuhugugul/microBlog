@@ -1,12 +1,12 @@
-import MainPage from '../model/main.js';
+import Day from '../models/Day';
 import viewMainPage from '../view/main.js'
 
 
 export default function actionMainPage() {
-    const model = new MainPage();
+    const model = Day.findAll();
     const view = new viewMainPage();
-    const dataStore = model.getDataCalendars();
+    console.log(model)
 
-    view.createListMonths(dataStore);
+    view.createListMonths(model);
 
 }

@@ -1,11 +1,15 @@
-import Collections from '../model/collection';
+import ViewCollections from '../view/collection';
+import Collection from '../models/Collection';
 
 
-export function actionCollections(instanceStore) {
-    const collections = new Collections();
+export function actionCollections() {
+    const view = new ViewCollections();
+    const model = Collection.findAll();
 
-    const store = collections.getStore();
-    const htmlCollections = collections.createCollectionsPage(store);
-    collections.processEvent(htmlCollections);
-    console.log(collections)
+    view.createCollectionsPage(model);
+
+}
+
+export function actionDeleteCollection(id) {
+console.log(id)
 }

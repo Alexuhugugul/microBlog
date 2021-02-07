@@ -14,10 +14,10 @@ export default class viewMonth {
         const month = checkStringMonth(hash.slice(0, (hash.length - 5)))
 
         const listTasksDate = [];
-
         tasks.forEach(task => {
             listTasksDate.push(task.date);
         });
+
 
         calendar(elementDOMCalendar, listTasksDate, true);
 

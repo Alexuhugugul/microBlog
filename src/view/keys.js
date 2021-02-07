@@ -1,7 +1,15 @@
+import Key from '../models/Key'
+
 export default class viewKeysPage {
     constructor() { }
 
     createListKeys(keys) {
+        for (let key of keys) {
+            if ( !(key instanceof Key) ) {
+                throw new Error( 'Error' )
+            }
+        }
+
         const listKeys = document.querySelector('.key-list');
         const arrKeys = [];
 

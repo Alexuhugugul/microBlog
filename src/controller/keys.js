@@ -1,11 +1,11 @@
-import KeysPage from '../model/keys';
-import viewKeysPage from '../view/keys';
+import Key from '../models/Key';
+import ViewKeysPage from '../view/keys';
 
 
-export default function actionKeysPage(instanceStore) {
-    const model = new KeysPage();
-    const view=new viewKeysPage();
-    const dataStore = model.getDataKeys();
-    view.createListKeys(dataStore);
+export default function actionKeysPage() {
+    const models = Key.findAll();
+    const view = new ViewKeysPage();
+
+    view.createListKeys(models);
 }
 

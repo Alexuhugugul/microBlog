@@ -4,12 +4,19 @@ const calendar = [
         "date": "9_0_2021",
         "list_tasks": [
             {
+                "id": 1,
                 "type": 1,
                 "text": "Помыть посуду"
             },
             {
+                "id": 2,
                 "type": 2,
                 "text": "Покормить кошку"
+            },
+            {
+                "id": 3,
+                "type": 2,
+                "text": "Покормить кошку Basya"
             }
         ]
     },
@@ -18,7 +25,8 @@ const calendar = [
         "date": "12_0_2021",
         "list_tasks": [
             {
-                "type": 2,
+                "id": 4,
+                "type": 3,
                 "text": "Купить воды"
             }
         ]
@@ -120,77 +128,60 @@ export default class localStorageManager {
         return obj;
     }
 
-    getDataCalendars() {
-        const storeCalendars = window.localStorage.calendar;
-        const calendar = JSON.parse(storeCalendars);
+    // getDataCalendars() {
+    //     const storeCalendars = window.localStorage.calendar;
+    //     const calendar = JSON.parse(storeCalendars);
 
-        return calendar;
-    }
+    //     return calendar;
+    // }
 
-    getDataKeys(){
-        const storeKeys = window.localStorage.keys;
-        const keys = JSON.parse(storeKeys);
+    // getDataKeys(){
+    //     const storeKeys = window.localStorage.keys;
+    //     const keys = JSON.parse(storeKeys);
 
-        return keys;
-    }
+    //     return keys;
+    // }
 
-    getDataCollections(){
-        const storeCollections = window.localStorage.collections;
-        const collections = JSON.parse(storeCollections);
+    // getDataCollections(){
+    //     const storeCollections = window.localStorage.collections;
+    //     const collections = JSON.parse(storeCollections);
 
-        return collections;
-    }
+    //     return collections;
+    // }
 
     removeItem(id) {
         window.localStorage.removeItem(id)
     }
-
-    consoleView() {
-        console.log(window.localStorage)
-    }
+    /* 
+        consoleView() {
+            console.log(window.localStorage)
+        } */
 
     /*     getCalendar() {
             return localStorage.calendar
         } */
-    setItemCalendar(value) {
+    /*   setItemCalendar(value, nameAttribute) {
+          console.log(value, nameAttribute)
+          const lastKey = JSON.parse(localStorage.calendar).length;
+          const oldCalendar = JSON.parse(localStorage.calendar);
+          const newCalendar = [...oldCalendar];
+          const currentDate = newCalendar.find(elem => elem.date === value.date);
+  
+          if (currentDate) {
+              currentDate.list_tasks.push(value.list_tasks[0])
+  
+          } else {
+              const item = {
+                  "id": lastKey,
+                  ...value
+              }
+  
+              newCalendar.push(item);
+          }
+          localStorage.setItem("calendar", JSON.stringify(newCalendar));
+      } */
 
-        const lastKey = JSON.parse(localStorage.calendar).length;
-        const oldCalendar = JSON.parse(localStorage.calendar);
-        const newCalendar = [...oldCalendar];
-        const currentDate = newCalendar.find(elem => elem.date === value.date);
 
-        if (currentDate) {
-            currentDate.list_tasks.push(value.list_tasks[0])
-
-        } else {
-            const item = {
-                "id": lastKey,
-                ...value
-            }
-
-            newCalendar.push(item);
-        }
-        localStorage.setItem("calendar", JSON.stringify(newCalendar));
-    }
-
-    setItemTask(date, newText, oldText) {
-        const tasks = JSON.parse(localStorage.calendar);
-        const task = tasks.find(el => el.date === date).list_tasks;
-        const obj = task.find(el => el.text === oldText)
-        obj.text = newText;
-        console.log('task', tasks)
-        localStorage.setItem("calendar", JSON.stringify(tasks));
-
-    }
-
-    deleteItemTask(date, text) {
-        const tasks = JSON.parse(localStorage.calendar);
-        const task = tasks.find(el => el.date === date);
-        const obj = task.list_tasks.filter(el => el.text !== text)
-        task.list_tasks = obj
-        localStorage.setItem("calendar", JSON.stringify(tasks));
-
-    }
 
     setDateInCollections(date, name, selectedDate) {
         const collections = JSON.parse(localStorage.collections);
@@ -200,6 +191,51 @@ export default class localStorageManager {
 
     }
 
+
+
+    // setNewCollection(date, name) {
+    //     const collections = JSON.parse(localStorage.collections);
+
+    //     const lastKey = collections.length;
+    //     const newCollection = {
+    //         "id": lastKey,
+    //         date,
+    //         name,
+    //         "select_date": []
+    //     }
+    //     collections.push(newCollection)
+    //     localStorage.setItem("collections", JSON.stringify(collections));
+
+    // }
+
+
+
+    renameCollection(date, name, oldName) {
+        const collections = JSON.parse(localStorage.collections);
+        const filterByDate = collections.filter(el => el.date === date)
+        const oldNameCollection = filterByDate.find(el => el.name === oldName)
+        oldNameCollection.name = name
+        localStorage.setItem("collections", JSON.stringify(collections));
+
+    }
+
+
+
+
+
+
+
+
+
+    /*    deleteItemTask(date, text) {
+           const tasks = JSON.parse(localStorage.calendar);
+           const task = tasks.find(el => el.date === date);
+           const obj = task.list_tasks.filter(el => el.text !== text)
+           task.list_tasks = obj
+           localStorage.setItem("calendar", JSON.stringify(tasks));
+   
+       } */
+
     deleteDateInCollections(date, name, selectedDate) {
         const collections = JSON.parse(localStorage.collections);
         const collection = collections.find(el => el.date === date && el.name === name);
@@ -207,21 +243,6 @@ export default class localStorageManager {
         const arr = collection.select_date.filter(el => el !== selectedDate)
         collection.select_date = arr
         localStorage.setItem("collections", JSON.stringify(collections));
-    }
-
-    setNewCollection(date, name) {
-        const collections = JSON.parse(localStorage.collections);
-
-        const lastKey = collections.length;
-        const newCollection = {
-            "id": lastKey,
-            date,
-            name,
-            "select_date": []
-        }
-        collections.push(newCollection)
-        localStorage.setItem("collections", JSON.stringify(collections));
-
     }
 
     deleteCollection(date, name) {
@@ -236,12 +257,160 @@ export default class localStorageManager {
         localStorage.setItem("collections", JSON.stringify(obj));
     }
 
-    renameCollection(date, name, oldName) {
-        const collections = JSON.parse(localStorage.collections);
-        const filterByDate = collections.filter(el => el.date === date)
-        const oldNameCollection = filterByDate.find(el => el.name === oldName)
-        oldNameCollection.name = name
-        localStorage.setItem("collections", JSON.stringify(collections));
+
+
+
+
+
+    /****************************8 */
+
+    /*   getDataByIdAndAttribute(id, attribute) {
+          const store = window.localStorage;
+          const data = store[attribute];
+          const collections = JSON.parse(data);
+          collections.forEach(day => {
+              const result = day.list_tasks.find(elem => elem.id == id)
+  
+              console.log(day.list_tasks)
+              console.log(day)
+          })
+  
+          return collections;
+      } */
+
+    getDataByNameAttribute(attribute) {
+        const store = window.localStorage;
+        const data = store[attribute];
+        const collections = JSON.parse(data);
+
+        return collections;
 
     }
+
+    deleteDataById(id, attribute) {
+        const days = this._getLocalStorageElement(attribute);
+
+        days.forEach(day => {
+
+            const tasks = day.list_tasks;
+            const filteredTask = tasks.filter(task => task.id !== id);
+
+            day.list_tasks = filteredTask;
+        })
+
+        this._saveStore(attribute, days);
+
+    }
+
+    /*     setNewCollection(date, name) {
+            const collections = JSON.parse(localStorage.collections);
+    
+            const lastKey = collections.length;
+            const newCollection = {
+                "id": lastKey,
+                date,
+                name,
+                "select_date": []
+            }
+            collections.push(newCollection)
+            localStorage.setItem("collections", JSON.stringify(collections));
+    
+        } */
+    setNewItem(value, nameAttribute) {
+
+        const store = this._getLocalStorageElement(nameAttribute);
+        const lastKey = this._getLastKey(store, nameAttribute);
+
+        if (nameAttribute === "calendar") {
+            const task = value.list_tasks[0];
+            const currentDate = store.find(elem => elem.date === value.date);
+
+            if (currentDate) {
+                task["id"] = lastKey;
+                currentDate.list_tasks.push(task);
+
+            } else {
+                const newDay = {
+                    "id": lastKey,
+                    ...value
+                }
+
+                store.push(newDay);
+            }
+        }
+        else if (nameAttribute === "collections") {
+
+            const newCollection = {
+                "id": lastKey,
+                ...value,
+                "select_date": []
+            }
+            store.push(newCollection)
+
+        }
+
+        this._saveStore(nameAttribute, store);
+    }
+
+
+    _getLocalStorageElement(attribute) {
+        const store = window.localStorage;
+        const data = store[attribute];
+        const element = JSON.parse(data);
+
+        return element;
+    }
+
+    _getLastKey(store, nameAttribute) {
+        const arrId = [];
+        
+        if (nameAttribute === "calendar") {
+            store.forEach(day => {
+                day.list_tasks.forEach(task => {
+                    arrId.push(Number(task.id))
+                })
+            })
+        } 
+        else if (nameAttribute === "collections") {
+            store.forEach(collection=>{
+                arrId.push(Number(collection.id))
+            })
+        }
+
+        const lastKey = Math.max.apply(Math, arrId);
+
+        return lastKey + 1;
+    }
+
+
+
+    renameItem(id, newName, nameAttribute) {
+        const store = this._getLocalStorageElement(nameAttribute);
+
+        if (nameAttribute === "calendar") {
+            const task = this._searchTask(store, id);
+            task.text = newName;
+        }
+
+        this._saveStore(nameAttribute, store);
+    }
+
+    _searchTask(calendar, id) {
+        let searchTask = null
+        calendar.forEach(day => {
+            day.list_tasks.forEach(task => {
+                if (task.id === id) {
+                    searchTask = task;
+                }
+            })
+        })
+        return searchTask;
+    }
+
+    _saveStore(nameAttribute, store) {
+        localStorage.setItem(nameAttribute, JSON.stringify(store));
+    }
+    /* loadKeyById ( id ) {
+        return JSON.parse( window.localStorage.keys ).find( item => item.id === id )
+    } */
 }

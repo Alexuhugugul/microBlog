@@ -26,7 +26,7 @@ export default class viewMainPage {
             const year = date[1];
 
             buttonMonth.innerHTML = `<button class="main-dropdown_item">${checkStringMonth(month)}  ${year}</button>`;
-            buttonMonth.href = `../pages/month?page=${month}.html`;
+            buttonMonth.href = `../pages/month?page=${month}_${year}.html`;
 
             listMonthsInDropdown.append(buttonMonth);
         }

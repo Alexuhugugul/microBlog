@@ -1,35 +1,36 @@
 import actionMainPage from './controller/main.js';
 import actionKeysPage from './controller/keys.js';
 import actionMonthPage from './controller/month.js';
-import { actionCollections } from './controller/collection.js';
-import { actionDay } from './controller/day.js';
-import { actionCreatorTask } from './controller/creatorTask.js';
-import {actionCreateCollections} from './controller/createCollection.js';
+import {actionDayPage} from './controller/day.js';
+import {actionCreatorTaskPage} from './controller/creatorTask.js';
 
-export function route(instance) {
+import { actionCollections } from './controller/collection.js';
+import {actionCreateCollectionsPage} from './controller/createCollection.js';
+
+export function route() {
     const url = window.location
 
     switch (url.pathname) {
         case "/pages/main.html":
-            actionMainPage(instance)
+            actionMainPage()
             break;
         case "/pages/keys.html":
-            actionKeysPage(instance)
+            actionKeysPage()
             break;
         case "/pages/month":
-            actionMonthPage(instance)
+            actionMonthPage()
             break;
         case "/pages/collection":
-            actionCollections(instance)
+            actionCollections()
             break;
         case "/pages/day":
-            actionDay(instance)
+            actionDayPage()
             break;
         case "/pages/creatorTask":
-            actionCreatorTask(instance)
+            actionCreatorTaskPage()
             break;
         case "/pages/creatorCollection":
-            actionCreateCollections(instance)
+            actionCreateCollectionsPage()
             break;
         default:
             console.log('route /');

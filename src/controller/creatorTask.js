@@ -1,6 +1,18 @@
-import { creatorTask } from '../model/creatorTask';
+import ViewCreatorTask from '../view/creatorTask';
+
+import Key from '../models/Key';
+import Day from '../models/Day';
 
 
-export function actionCreatorTask(instanceStore) {
-    creatorTask(instanceStore)
+
+export function actionCreatorTaskPage() {
+    const modelKey = Key.findAll();
+    const view = new ViewCreatorTask();
+
+    view.createCreatorTask(modelKey);
+}
+
+
+export function actionSetNewTask(newTask) {
+    Day.set(newTask);
 }

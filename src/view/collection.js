@@ -2,24 +2,24 @@ import { calendar } from '../utils/calendar';
 import replaceUrl from '../utils/replaceUrl';
 import { hide, show } from '../utils/showAndHideElement';
 import instanceStoreManager from '../StoreManager';
+import { actionDeleteCollection } from '../controller/collection';
+
 const hash = window.location.search;
 const selectedMonthAndYear = replaceUrl(hash, /[?page=,.html]/g);
 
-export default class Collections {
+export default class ViewCollections {
 
     constructor() { }
 
-    getStore() {
-        return instanceStoreManager.getAllItem();
-    }
+
 
     createCollectionsPage(store) {
         const htmlCalendarsAndIcons = [];
-        const collectionsData = store.collections;
+        const collectionsData = store;
         const bodyPage = document.querySelector(".collections-body");
         const buttonCreateCollection = document.querySelector(".collections-button");
-        
-        buttonCreateCollection.href = `/view/creatorCollection?page=${selectedMonthAndYear}`;
+
+        buttonCreateCollection.href = `/pages/creatorCollection?page=${selectedMonthAndYear}`;
 
         collectionsData.forEach(collection => {
 
@@ -75,7 +75,7 @@ export default class Collections {
             }
         })
 
-        return htmlCalendarsAndIcons;
+        this.processEvent(htmlCalendarsAndIcons);
     }
 
     processEvent(HTMLCollection) {
@@ -94,7 +94,7 @@ export default class Collections {
     }
 
     _deleteCalendar(event) {
-        
+
         const elementParent = event.target.parentNode.parentNode;
         const calendar = elementParent.querySelector(".calendar-item");
         const elementNameCollection = event.target.parentNode;
@@ -103,7 +103,7 @@ export default class Collections {
         elementNameCollection.remove();
         calendar.remove();
 
-        instanceStoreManager.deleteCollection(selectedMonthAndYear, nameCollection);
+        actionDeleteCollection(selectedMonthAndYear, nameCollection);
 
     }
 
