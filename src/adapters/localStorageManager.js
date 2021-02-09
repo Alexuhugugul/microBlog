@@ -1,4 +1,4 @@
-import { days, collections, keys, tasksForMonth } from './data';
+import { days, collections, keys, tasksForMonth, taskForYear } from './data';
 
 export default class localStorageManager {
 
@@ -20,6 +20,10 @@ export default class localStorageManager {
         }
         if (!localStorage.tasksForMonth) {
             window.localStorage.setItem("tasksForMonth", JSON.stringify(tasksForMonth));
+        }
+        if (!localStorage.taskForYear) {
+            window.localStorage.setItem("taskForYear", JSON.stringify(taskForYear));
+
         }
 
     }
@@ -57,7 +61,7 @@ export default class localStorageManager {
     }
 
     getById(id, nameTable) {
-        console.log(id,nameTable)
+        console.log(id, nameTable)
         const strData = window.localStorage.getItem(nameTable);
         const dataAll = JSON.parse(strData);
         const foundData = dataAll.find(value => value.id === id);

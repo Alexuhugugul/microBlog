@@ -1,11 +1,11 @@
 import Model from './Model';
 
-export default class Key extends Model {
+export default class Task extends Model {
 
-    image = null;
+    date= null;
     text = null;
     type = null;
-    static _nameAttribute = 'keys';
+    static _nameAttribute = 'taskForYear';
 
     static findAll() {
 
@@ -13,12 +13,12 @@ export default class Key extends Model {
         const keys = []
 
         for (let rawKey of rawKeys) {
-            const key = new Key()
+            const key = new this()
 
             key.setAttribute('id', rawKey.id);
-            key.setAttribute('image', rawKey.image);
             key.setAttribute('text', rawKey.text);
             key.setAttribute('type', rawKey.type);
+            key.setAttribute('date', rawKey.date);
 
             keys.push(key)
         }

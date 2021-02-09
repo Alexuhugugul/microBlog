@@ -1,0 +1,17 @@
+.plan-future{
+    .block-task{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 20px;
+        .create-type_dropdown,.task-cancel,.input-edit-task,.task-save {
+            display: none;
+        }
+        svg,p,.task-edit,.create-type_dropdown,.input-edit-task,.task-cancel{
+            margin-right: 10px;
+        }
+        .task-edit,.task-delete,.task-save,.task-cancel{
+            cursor: pointer;
+        }
+    }
+}

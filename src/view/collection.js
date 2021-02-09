@@ -1,17 +1,13 @@
 import creastorCalendar from '../utils/creastorCalendar';
 import replaceUrl from '../utils/replaceUrl';
 import { hide, show } from '../utils/showAndHideElement';
-import instanceStoreManager from '../StoreManager';
 import { actionDeleteCollection, actionSaveCollection } from '../controller/collection';
-import { collections } from '../adapters/data';
 
 const hash = window.location.search;
 const selectedMonthAndYear = replaceUrl(hash, /[?page=,.html]/g);
 let collectionsData = null;
+
 export default class ViewCollections {
-
-    constructor() { }
-
 
 
     createCollectionsPage(store) {
@@ -33,29 +29,29 @@ export default class ViewCollections {
             const iconSavedaysName = document.createElement("img");
             const blockCollection = document.createElement("div");
             const collectionForSelectedDate = collection.date === selectedMonthAndYear;
-
-            daysOnMonth.classList.add("days-item");
-            daysOnMonth.classList.add(`day_${collection.id}`);
-            nameCollection.classList.add('days-item_title');
-            iconSavedaysName.classList = "days-title-save";
-            iconDeletedays.classList = "days-delete"
-            iconRenamedays.classList = "days-edit";
-            blockCollection.classList = "days-block";
-            inputForRename.classList = "days-edit-title";
-
-            iconDeletedays.src = "../src/asset/images/close-black.svg";
-            iconRenamedays.src = "../src/asset/images/create-black.svg";
-            iconSavedaysName.src = "../src/asset/images/save-black.svg";
-
-            daysOnMonth.innerHTML = `<thead><tr><td colspan="4"><td colspan="3"><tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс<tbody class="days-date">`;
-            nameCollection.innerHTML = `<p>${collection.name}</p>`;
-
-            bodyPage.append(blockCollection);
-
-            hide(iconSavedaysName);
-            hide(inputForRename);
-
             if (collectionForSelectedDate) {
+                daysOnMonth.classList.add("days-item");
+                daysOnMonth.classList.add(`day_${collection.id}`);
+                nameCollection.classList.add('days-item_title');
+                iconSavedaysName.classList = "days-title-save";
+                iconDeletedays.classList = "days-delete"
+                iconRenamedays.classList = "days-edit";
+                blockCollection.classList = "days-block";
+                inputForRename.classList = "days-edit-title";
+
+                iconDeletedays.src = "../src/asset/images/close-black.svg";
+                iconRenamedays.src = "../src/asset/images/create-black.svg";
+                iconSavedaysName.src = "../src/asset/images/save-black.svg";
+
+                daysOnMonth.innerHTML = `<thead><tr><td colspan="4"><td colspan="3"><tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс<tbody class="days-date">`;
+                nameCollection.innerHTML = `<p>${collection.name}</p>`;
+
+                bodyPage.append(blockCollection);
+
+                hide(iconSavedaysName);
+                hide(inputForRename);
+
+
 
                 nameCollection.append(iconRenamedays);
                 nameCollection.append(iconDeletedays);
@@ -73,105 +69,101 @@ export default class ViewCollections {
                     "iconSavedaysName": iconSavedaysName
                 }
 
-                htmldayssAndIcons.push(daysAndIcon)
+                // htmldayssAndIcons.push(daysAndIcon)
+                this.processEvent(blockCollection);
             }
-        })
-
-        this.processEvent(htmldayssAndIcons);
-    }
-
-    processEvent(HTMLCollection) {
-
-        HTMLCollection.forEach(element => {
-
-            const bodydays = element.daysOnMonth.querySelector(".days-date");
-            const cellsdays = bodydays.querySelectorAll("td");
-
-            element.iconDeletedays.addEventListener("click", this._deletedays);
-            element.iconRenamedays.addEventListener("click", this._renamedays);
-            element.iconSavedaysName.addEventListener("click", this._saveNewName);
-            cellsdays.forEach(cell => cell.addEventListener("click", this._selectedDate));
 
         })
-    }
-
-    _deletedays(event) {
-
-        const elementParent = event.target.parentNode.parentNode;
-        const days = elementParent.querySelector(".days-item");
-        const elementNameCollection = event.target.parentNode;
-        const nameCollection = elementNameCollection.textContent;
-        const classIdCollection = days.classList[1];
-        const idCollection = classIdCollection.replace("day_", "")
-        const valueByDelete = collectionsData.find(collection => collection.id === Number(idCollection));
-
-        elementNameCollection.remove();
-        days.remove();
-
-        actionDeleteCollection(valueByDelete);
 
     }
 
-    _renamedays(event) {
-        const elementNameCollection = event.target.parentNode;
-        const oldName = elementNameCollection.textContent;
-        const elementParent = event.target.parentNode.parentNode;
-        const iconSave = elementParent.querySelector(".days-title-save");
-        const input = elementParent.querySelector(".days-edit-title");
+    processEvent(blockCollection) {
 
-        input.value = oldName;
+        const fieldNameCollection = blockCollection.querySelector("p");
+        const edit = blockCollection.querySelector(".days-edit");
+        const deleteCollection = blockCollection.querySelector(".days-delete");
+        const input = blockCollection.querySelector(".days-edit-title");
+        const save = blockCollection.querySelector(".days-title-save");
+        const cellsdays = blockCollection.querySelectorAll("td");
+        const days = blockCollection.querySelector(".days-item");
 
-        show(iconSave);
-        show(input);
-        hide(elementNameCollection);
-    }
+        deleteCollection.addEventListener("click", _deletedays);
+        edit.addEventListener("click", _renameCollection);
+        save.addEventListener("click", _saveNewName);
+        cellsdays.forEach(cell => cell.addEventListener("click", _selectedDate));
 
-    _saveNewName(event) {
-        const save = event.target;
-        const parent = event.target.parentNode;
-        const days = parent.querySelector(".days-item");
-        const title = parent.querySelector(".days-item_title");
-        const titleText = title.querySelector("p");
-        const oldName = titleText.textContent;
-        const input = parent.querySelector(".days-edit-title");
-        const name = input.value;
-        const classIdCollection = days.classList[1];
-        const idCollection = classIdCollection.replace("day_", "");
-        const valueByRename = collectionsData.find(collection => collection.id === Number(idCollection));
+        function _deletedays() {
 
-        titleText.textContent = input.value;
+            const classIdCollection = days.classList[1];
+            const idCollection = classIdCollection.replace("day_", "");
+            const valueByDelete = collectionsData.find(collection => collection.id === Number(idCollection));
+            actionDeleteCollection(valueByDelete);
 
-        hide(save);
-        hide(input);
-        show(title);
-        valueByRename["name"] = name;
+            hide(fieldNameCollection);
+            hide(edit);
+            hide(deleteCollection);
+            hide(days);
 
-        actionSaveCollection(valueByRename);
-
-    }
-
-    _selectedDate(event) {
-        const element = event.target;
-        const parent = event.target.parentNode.parentNode.parentNode.parentNode;
-        const nameCollection = parent.querySelector("p").textContent;
-        const date = element.textContent + '_' + selectedMonthAndYear;
-        const table = parent.querySelector(".days-item");
-        const classIdTable = table.classList[1];
-        const classNames = element.classList;
-        const id = classIdTable.replace("day_", "");
-        const selectDate = collectionsData.find(collection => collection.id === Number(id));
-        const newCollection = selectDate.select_date;
-        if (!classNames[0]) {
-            classNames.add("days-select-date");
-            newCollection.push({ date, "id": null });
-
-        } else {
-            classNames.remove("days-select-date");
-            selectDate.select_date = newCollection.filter(el => date !== el.date);
 
         }
-        actionSaveCollection(selectDate);
+
+        function _renameCollection() {
+            const oldName = fieldNameCollection.textContent;
+
+            input.value = oldName;
+
+            show(save);
+            show(input);
+            hide(edit);
+            hide(deleteCollection);
+            hide(fieldNameCollection);
+        }
+
+        function _saveNewName(event) {
+            const name = input.value;
+            const classIdCollection = days.classList[1];
+            const idCollection = classIdCollection.replace("day_", "");
+            const valueByRename = collectionsData.find(collection => collection.id === Number(idCollection));
+
+            fieldNameCollection.textContent = input.value;
+
+            hide(save);
+            hide(input);
+            show(edit);
+            show(deleteCollection);
+            show(fieldNameCollection);
+
+            valueByRename["name"] = name;
+
+            actionSaveCollection(valueByRename);
+
+        }
+
+        function _selectedDate(event) {
+            const parent = event.target.parentNode.parentNode.parentNode.parentNode;
+            const element = event.target;
+            const date = element.textContent + '_' + selectedMonthAndYear;
+            const table = parent.querySelector(".days-item");
+            const classIdTable = table.classList[1];
+            const classNames = element.classList;
+            const id = classIdTable.replace("day_", "");
+            const selectDate = collectionsData.find(collection => collection.id === Number(id));
+            const newCollection = selectDate.select_date;
+            
+            if (!classNames[0]) {
+                classNames.add("days-select-date");
+                newCollection.push({ date, "id": null });
+
+            } else {
+                classNames.remove("days-select-date");
+                selectDate.select_date = newCollection.filter(el => date !== el.date);
+
+            }
+            actionSaveCollection(selectDate);
+        }
     }
+
+
 }
 
 

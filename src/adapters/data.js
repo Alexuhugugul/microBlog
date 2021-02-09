@@ -110,14 +110,29 @@ export const tasksForMonth = [
     {
         "id": 1,
         "date": "0_2021",
-        "text":"купить кофе",
-        "type":2
+        "text": "купить кофе",
+        "type": 2
     },
     {
         "id": 2,
         "date": "0_2021",
-        "text":"Оплатить комуналку",
-        "type":1
+        "text": "Оплатить комуналку",
+        "type": 1
 
+    }
+]
+
+export const taskForYear = [
+    {
+        "id": 1,
+        "date": "2021",
+        "text":"Ремонт",
+        "type":2
+    },
+    {
+        "id": 2,
+        "date": "2022",
+        "text":"Ремонт 2",
+        "type":3
     }
 ]
