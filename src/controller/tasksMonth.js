@@ -13,7 +13,7 @@ export  function actionTasksMonth() {
 
 export function actionDeleteTaskForMonth(value) {
     const task = new TaskForMonth();
-
+console.log(value)
     task.setAttribute('id', value.id);
     task.setAttribute('date', value.date);
     task.setAttribute('text', value.text);

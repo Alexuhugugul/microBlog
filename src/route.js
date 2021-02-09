@@ -5,6 +5,7 @@ import { actionDayPage } from './controller/day.js';
 import { actionCreatorTaskPage } from './controller/creatorTask.js';
 import { actionCreateMonth } from './controller/createNewMonth.js';
 import { actionTasksMonth } from './controller/tasksMonth';
+import {actionCreateTasksForMonth} from './controller/createNewTaskForMonth';
 
 import { actionCollections } from './controller/collection.js';
 import { actionCreateCollectionsPage } from './controller/createCollection.js';
@@ -41,7 +42,7 @@ export default function routes() {
             actionTasksMonth()
             break;
         case "/pages/creatorNewTaskForMonth":
-            actionTasksMonth()
+            actionCreateTasksForMonth()
             break;
         default:
             console.log('route /');

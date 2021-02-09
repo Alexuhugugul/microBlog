@@ -1,96 +1,142 @@
 import replaceUrl from './replaceUrl';
+import { checkStringMonth } from './checkStringMonth';
 
-function getLastDateOfMonth(date) {
-  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+const selectedMonth = window.location.search;
+const hash = replaceUrl(selectedMonth, /[?page=,.html]/g);
+const arrDate = hash.split("_");
+const month = arrDate[0];
+const year = arrDate[1];
+const today = new Date();
+const firstDayMonth = new Date(year, month);
+const lastDayMonth = getLastDateOfMonth(firstDayMonth);
+const lastDayOfWeek = getLastDayOfWeek(firstDayMonth, lastDayMonth);
+const dayOfWeekOfFirstDayOfTheMonth = getDayOfWeekOfFirstDayOfTheMonth(firstDayMonth);
+let row = '<tr>';
+
+export default function creastorCalendar(domElement, selectedDates, checkSelectedDayOrSelectedCollection) {
+
+  _emptyCellBeforeFirstDayMonth();
+  _getDayMonth(checkSelectedDayOrSelectedCollection);
+  _emptyCellLastDayOfMonth();
+  _addCalendarInDom(domElement);
+  _viewSelectedDate(domElement, selectedDates, checkSelectedDayOrSelectedCollection);
+
 }
 
-
-export default function creastorCalendar(domElement, selectedDates, statusdays) {
-  const selectedMonth = window.location.search;
-  const hash = replaceUrl(selectedMonth, /[?page=,.html]/g);
-  const year = hash.slice((hash.length - 4));
-  const monthYear = hash.slice(0, (hash.length - 5));
-  const today = new Date();
-  var D1 = new Date(year, monthYear),
-    D1last = getLastDateOfMonth(D1),
-    D1Nlast = new Date(D1.getFullYear(), D1.getMonth(), D1last).getDay(), // день недели последнего дня месяца
-    D1Nfirst = new Date(D1.getFullYear(), D1.getMonth(), 1).getDay(), // день недели первого дня месяца
-    days1 = '<tr>',
-    month = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]; // название месяца, вместо цифр 0-11
-
-
-  // пустые клетки до первого дня текущего месяца
-  if (D1Nfirst != 0) {
-    for (var i = 1; i < D1Nfirst; i++) days1 += '<td>';
-  } else { // если первый день месяца выпадает на воскресенье, то требуется 7 пустых клеток 
-    for (var i = 0; i < 6; i++) days1 += '<td>';
+function _emptyCellBeforeFirstDayMonth() {
+  if (dayOfWeekOfFirstDayOfTheMonth != 0) {
+    for (let i = 1; i < dayOfWeekOfFirstDayOfTheMonth; i++) row += '<td>';
+  } else {
+    for (let i = 0; i < 6; i++) row += '<td>';
   }
+}
 
-  // дни месяца
-  for (var i = 1; i <= D1last; i++) {
+function _getDayMonth(checkSelectedDayOrSelectedCollection) {
+  for (let i = 1; i <= lastDayMonth; i++) {
     const isTodayDate = i === today.getDate()
 
     if (!isTodayDate) {
-      if (statusdays) {
-        days1 += `<td><a href="/pages/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;
+      if (checkSelectedDayOrSelectedCollection) {
+        row += `<td><a href="/pages/day?page=${i}_${month}_${year}">${i}</a></td>`;
       } else {
-        days1 += `<td>` + i;
+        row += `<td>` + i;
       }
-
     } else {
-      if (statusdays && (monthYear == today.getMonth()) && (year == today.getFullYear())) {
-        days1 += `<td id="today"><a href="/pages/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;  // сегодняшней дате можно задать стиль CSS
-      } else if (statusdays && (monthYear !== today.getMonth()) && (year !== today.getFullYear())) {
-        days1 += `<td id="today"><a href="/pages/day?page=${i}_${monthYear}_${year}">${i}</a></td>`;  // сегодняшней дате можно задать стиль CSS
-      }
-      else {
-        days1 += `<td ">` + i
+      if (checkSelectedDayOrSelectedCollection) {
+        row += `<td id="today"><a href="/pages/day?page=${i}_${month}_${year}">${i}</a></td>`;
+      } else {
+        row += `<td ">` + i
       }
     }
-    if (new Date(D1.getFullYear(), D1.getMonth(), i).getDay() == 0) {  // если день выпадает на воскресенье, то перевод строки
-      days1 += '<tr>';
+    if (checkForSunday(firstDayMonth, i)) {
+      row += '<tr>';
     }
   }
-
-  // пустые клетки после последнего дня месяца
-  if (D1Nlast != 0) {
-    for (var i = D1Nlast; i < 7; i++) days1 += '<td>';
-  }
-
-
-  domElement.querySelector('tbody').innerHTML = days1;
-  domElement.querySelector('thead td:last-child').innerHTML = D1.getFullYear();
-  domElement.querySelector('thead td:first-child').innerHTML = month[D1.getMonth()];
-
-  if (selectedDates && selectedDates.length) {
-    selectedDates.forEach(timestamp => {
-
-      const elemsDomTD = domElement.querySelectorAll('td');
-
-      const timestampArr = timestamp.date.split("_");
-      const list=timestamp.list_tasks
-      const year = Number(timestampArr[2])
-      const monthYear = Number(timestampArr[1])
-      const day = Number(timestampArr[0])
-
-      elemsDomTD.forEach(el => {
-        if ((Number(el.innerText) === day) && (D1.getMonth() === monthYear) && (D1.getFullYear() === year) && (list && list.length && statusdays)) {
-          el.classList.add('days-select-date');
-
-        }
-      })
-
-      elemsDomTD.forEach(el => {
-        if ((Number(el.innerText) === day) && (D1.getMonth() === monthYear) && (D1.getFullYear() === year) && (!list  && !statusdays)) {
-          el.classList.add('days-select-date');
-
-        }
-      })
-
-    })
-  }
-
 }
 
 
+function _emptyCellLastDayOfMonth() {
+  if (lastDayOfWeek != 0) {
+    for (let i = lastDayOfWeek; i < 7; i++) {
+      row += '<td>'
+    };
+  }
+}
+
+
+function _addCalendarInDom(domElement) {
+  domElement.querySelector('tbody').innerHTML = row;
+  domElement.querySelector('thead td:last-child').innerHTML = firstDayMonth.getFullYear();
+  domElement.querySelector('thead td:first-child').innerHTML = checkStringMonth(firstDayMonth.getMonth());
+}
+
+
+
+function _viewSelectedDate(domElement, selectedDates, checkSelectedDayOrSelectedCollection) {
+
+  if (selectedDates && selectedDates.length) {
+    
+    selectedDates.forEach(selectedDate => {
+
+      const columns = domElement.querySelectorAll('td');
+      const selectedDateArr = selectedDate.date.split("_");
+      const listTasks = selectedDate.list_tasks;
+      const year = Number(selectedDateArr[2]);
+      const month = Number(selectedDateArr[1]);
+      const day = Number(selectedDateArr[0]);
+
+
+
+      columns.forEach(column => {
+        if (
+          _checkDayAndDayCell(column, day) &&
+          _checkMonthAndMonthCell(month) &&
+          _checkYearAndYearCell(year) &&
+          (listTasks && listTasks.length && checkSelectedDayOrSelectedCollection)) {
+
+          column.classList.add('days-select-date');
+        }
+      })
+
+      columns.forEach(column => {
+        if (
+          _checkDayAndDayCell(column, day) &&
+          _checkMonthAndMonthCell(month) &&
+          _checkYearAndYearCell(year) &&
+          (!listTasks && !checkSelectedDayOrSelectedCollection)) {
+
+          column.classList.add('days-select-date');
+        }
+      })
+    })
+  }
+}
+
+function _checkDayAndDayCell(cell, day) {
+  return Number(cell.innerText) === day;
+}
+
+function _checkMonthAndMonthCell(month) {
+  return firstDayMonth.getMonth() === month;
+}
+
+function _checkYearAndYearCell(year) {
+  return firstDayMonth.getFullYear() === year;
+}
+
+function getLastDateOfMonth(date) {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+}
+
+function getLastDayOfWeek(date, lastDay) {
+  return new Date(date.getFullYear(), date.getMonth(), lastDay).getDay();
+}
+
+function getDayOfWeekOfFirstDayOfTheMonth(date) {
+  return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
+}
+
+function checkForSunday(day, index) {
+  return new Date(day.getFullYear(), day.getMonth(), index).getDay() == 0;
+}
 
