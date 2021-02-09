@@ -34,4 +34,8 @@ $header-color_hover: rgb(187, 115, 6);
         margin-left: 10px;
         cursor: pointer;
     }
+    .task-cancel,.create-type_dropdown{
+        cursor: pointer;
+        display: none;
+    }
 }

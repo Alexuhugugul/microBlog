@@ -12,10 +12,22 @@ export function actionDayPage() {
     view.createTasksListDay(modelKey, modelDay);
 }
 
-export function actionDeleteTask(id) {
-    Day.delete(id);
+export function actionDeleteTask(value) {
+    const day = new Day();
+  
+    day.setAttribute('id', value.id);
+    day.setAttribute('date', value.date);
+    day.setAttribute('list_tasks', value.list_tasks);
+
+    day.deleteById();
 }
 
-export function actionRenameTask(id,newName){
-    Day.rename(id,newName)
+export function actionUpdateDay(value){
+    const day =new Day();
+  
+    day.setAttribute('id', value.id);
+    day.setAttribute('date', value.date);
+    day.setAttribute('list_tasks', value.list_tasks);
+
+    day.save();
 }

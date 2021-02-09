@@ -1,4 +1,4 @@
-const calendar = [
+const days = [
     {
         "id": 1,
         "date": "9_0_2021",
@@ -95,8 +95,8 @@ const collections = [
 export default class localStorageManager {
 
     setItem() {
-        if (!localStorage.calendar) {
-            window.localStorage.setItem("calendar", JSON.stringify(calendar));
+        if (!localStorage.days) {
+            window.localStorage.setItem("days", JSON.stringify(days));
 
         }
         if (!localStorage.collections) {
@@ -128,11 +128,11 @@ export default class localStorageManager {
         return obj;
     }
 
-    // getDataCalendars() {
-    //     const storeCalendars = window.localStorage.calendar;
-    //     const calendar = JSON.parse(storeCalendars);
+    // getDatadayss() {
+    //     const storedayss = window.localStorage.days;
+    //     const days = JSON.parse(storedayss);
 
-    //     return calendar;
+    //     return days;
     // }
 
     // getDataKeys(){
@@ -157,15 +157,15 @@ export default class localStorageManager {
             console.log(window.localStorage)
         } */
 
-    /*     getCalendar() {
-            return localStorage.calendar
+    /*     getdays() {
+            return localStorage.days
         } */
-    /*   setItemCalendar(value, nameAttribute) {
+    /*   setItemdays(value, nameAttribute) {
           console.log(value, nameAttribute)
-          const lastKey = JSON.parse(localStorage.calendar).length;
-          const oldCalendar = JSON.parse(localStorage.calendar);
-          const newCalendar = [...oldCalendar];
-          const currentDate = newCalendar.find(elem => elem.date === value.date);
+          const lastKey = JSON.parse(localStorage.days).length;
+          const olddays = JSON.parse(localStorage.days);
+          const newdays = [...olddays];
+          const currentDate = newdays.find(elem => elem.date === value.date);
   
           if (currentDate) {
               currentDate.list_tasks.push(value.list_tasks[0])
@@ -176,9 +176,9 @@ export default class localStorageManager {
                   ...value
               }
   
-              newCalendar.push(item);
+              newdays.push(item);
           }
-          localStorage.setItem("calendar", JSON.stringify(newCalendar));
+          localStorage.setItem("days", JSON.stringify(newdays));
       } */
 
 
@@ -228,11 +228,11 @@ export default class localStorageManager {
 
 
     /*    deleteItemTask(date, text) {
-           const tasks = JSON.parse(localStorage.calendar);
+           const tasks = JSON.parse(localStorage.days);
            const task = tasks.find(el => el.date === date);
            const obj = task.list_tasks.filter(el => el.text !== text)
            task.list_tasks = obj
-           localStorage.setItem("calendar", JSON.stringify(tasks));
+           localStorage.setItem("days", JSON.stringify(tasks));
    
        } */
 
@@ -247,11 +247,11 @@ export default class localStorageManager {
 
     deleteCollection(date, name) {
         const collections = JSON.parse(localStorage.collections);
-        const othersCalendars = collections.filter(el => el.date !== date)
+        const othersdayss = collections.filter(el => el.date !== date)
         const filterByDate = collections.filter(el => el.date === date)
         const filterByName = filterByDate.filter(el => el.name !== name)
         const obj = []
-        obj.push(...othersCalendars)
+        obj.push(...othersdayss)
         obj.push(...filterByName)
 
         localStorage.setItem("collections", JSON.stringify(obj));
@@ -321,7 +321,7 @@ export default class localStorageManager {
         const store = this._getLocalStorageElement(nameAttribute);
         const lastKey = this._getLastKey(store, nameAttribute);
 
-        if (nameAttribute === "calendar") {
+        if (nameAttribute === "days") {
             const task = value.list_tasks[0];
             const currentDate = store.find(elem => elem.date === value.date);
 
@@ -364,7 +364,7 @@ export default class localStorageManager {
     _getLastKey(store, nameAttribute) {
         const arrId = [];
         
-        if (nameAttribute === "calendar") {
+        if (nameAttribute === "days") {
             store.forEach(day => {
                 day.list_tasks.forEach(task => {
                     arrId.push(Number(task.id))
@@ -387,7 +387,7 @@ export default class localStorageManager {
     renameItem(id, newName, nameAttribute) {
         const store = this._getLocalStorageElement(nameAttribute);
 
-        if (nameAttribute === "calendar") {
+        if (nameAttribute === "days") {
             const task = this._searchTask(store, id);
             task.text = newName;
         }
@@ -395,9 +395,9 @@ export default class localStorageManager {
         this._saveStore(nameAttribute, store);
     }
 
-    _searchTask(calendar, id) {
+    _searchTask(days, id) {
         let searchTask = null
-        calendar.forEach(day => {
+        days.forEach(day => {
             day.list_tasks.forEach(task => {
                 if (task.id === id) {
                     searchTask = task;

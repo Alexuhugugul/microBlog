@@ -19,10 +19,10 @@ $header-color_hover: rgb(187, 115, 6);
     color: $header-color_hover;
 }
 .collections-body{
-    .calendar-item_title{
+    .days-item_title{
         color: $header-color_hover;
     }
-    .calendar-item{
+    .days-item{
         width: 290px;
         font-size: 25px;
         td{
@@ -30,11 +30,11 @@ $header-color_hover: rgb(187, 115, 6);
            cursor: pointer;
         }
     }
-    .calendar-select-date{
+    .days-select-date{
         background-color:red;
         border-radius: 50%;
     }
-    .calendar-delete,.calendar-edit,.calendar-title-save{
+    .days-delete,.days-edit,.days-title-save{
         cursor: pointer;
         margin-left: 10px;
     }

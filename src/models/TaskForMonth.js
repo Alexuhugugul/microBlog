@@ -1,11 +1,13 @@
 import Model from './Model';
 
-export default class Day extends Model {
+export default class TaskForMonth extends Model {
 
     date = null;
-    list_tasks = [];
-    static _nameAttribute = 'days';
-   
+    text = null;
+    type = null;
+    static _nameAttribute = 'tasksForMonth';
+
+
     static findAll() {
 
         const rawKeys = super.getAll() ?? [];
@@ -16,7 +18,8 @@ export default class Day extends Model {
 
             key.setAttribute('id', rawKey.id);
             key.setAttribute('date', rawKey.date);
-            key.setAttribute('list_tasks', rawKey.list_tasks);
+            key.setAttribute('text', rawKey.text);
+            key.setAttribute('type', rawKey.type);
 
             keys.push(key)
         }

@@ -49,6 +49,9 @@ module.exports = {
         new HtmlWebpackPlugin({ template: './src/pages/day.html', filename: 'pages/day?page=' }),
         new HtmlWebpackPlugin({ template: './src/pages/creatorTask.html', filename: 'pages/creatorTask?page=' }),
         new HtmlWebpackPlugin({ template: './src/pages/creatorCollection.html', filename: 'pages/creatorCollection?page=' }),
+        new HtmlWebpackPlugin({ template: './src/pages/creatorNewMonth.html', filename: 'pages/creatorNewMonth.html' }),
+        new HtmlWebpackPlugin({ template: './src/pages/tasksMonth.html', filename: 'pages/tasksMonth?page=' }),
+        new HtmlWebpackPlugin({ template: './src/pages/creatorNewTaskForMonth.html', filename: 'pages/creatorNewTaskForMonth?page=' }),
         new HtmlWebpackPlugin({ template: './src/index.html' }),
     ]
 

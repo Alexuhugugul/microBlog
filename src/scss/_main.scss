@@ -71,7 +71,7 @@ $header-color_hover: rgb(187, 115, 6);
         a {
             width: 100%;
         }
-        .main-dropdown_item {
+        .main-dropdown_item,.main-add-item {
             background-color: rgb(238, 234, 229);
             border: 1px solid $header-color;
             color: $header-color_hover;
@@ -82,7 +82,7 @@ $header-color_hover: rgb(187, 115, 6);
             outline: none;
             width: 100%;
         }
-        .main-dropdown_item:hover {
+        .main-dropdown_item:hover,.main-add-item:hover {
             background-color: $header-color_hover;
             border: 1px solid $header-color_hover;
             color: rgb(238, 234, 229);

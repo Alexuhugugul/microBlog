@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Создание нового мясяца | Bullet journal</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <header class="month-header">
+        <div class="month-text">Bullet journal</div>
+    </header>
+    <h1 class="month-title"></h1>
+    <form name="form-create-month" class="create-month-body">
+        <div>
+            <p>Новый месяц</p>
+            <select class="create-month" type="text" name="month"></select>
+        </div>
+
+        <div>
+            <p>Год</p>
+            <select class="create-year" type="text" name="year"></select>
+        </div>
+        <a class="create-month-save"><button type="submit">Сохранить</button></a>
+        <button class="create-month-cancel" onclick="window.history.back();">Отмена</button>
+        <h3 class="create-month-error">Данная дата уже существует</h3>
+    </form>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>

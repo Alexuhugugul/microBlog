@@ -1,4 +1,4 @@
-// const calendar = [
+// const days = [
 //     {
 //         "id": 1,
 //         "date": "1610150400000",
@@ -51,8 +51,8 @@
 
 //         openRequest.onupgradeneeded = function () {
 //             let db = openRequest.result;
-//             if (!db.objectStoreNames.contains('calendar')) {
-//                 db.createObjectStore('calendar', { keyPath: 'id' }); // создаем хранилище
+//             if (!db.objectStoreNames.contains('days')) {
+//                 db.createObjectStore('days', { keyPath: 'id' }); // создаем хранилище
 //             }
 //         };
 
@@ -70,7 +70,7 @@
 
 //     setItem() {
 //         this._initBD()
-//         /*  calendar.forEach(task => {
+//         /*  days.forEach(task => {
 //              window.localStorage.setItem(task.id, JSON.stringify(task));
 //          }) */
 //     }

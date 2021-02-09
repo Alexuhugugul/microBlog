@@ -3,20 +3,24 @@ import storeManager from '../StoreManager';
 export default class Model {
     id = null;
 
-    static getDataByNameAttribute() {
-        return storeManager.getDataByNameAttribute(this._nameAttribute);
+    static getAll() {
+        return storeManager.getAll(this._nameAttribute);
     }
 
-    static delete(id) {
-        return storeManager.deleteDataById(id, this._nameAttribute)
+    setAttribute(key, value) {
+        this[key] = value;
     }
 
-    static set(object) {
-        return storeManager.setNewItem(object, this._nameAttribute)
+    save() {
+        storeManager.save(this, this.constructor._nameAttribute)
     }
 
-    static rename(id,newName){
-        return storeManager.renameItem(id,newName,this._nameAttribute);
+    deleteById() {
+        storeManager.deleteById(this, this.constructor._nameAttribute)
+    }
+
+    static getById(id) {
+        return storeManager.getById(id, this._nameAttribute);
     }
 }
 

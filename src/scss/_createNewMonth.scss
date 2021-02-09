@@ -1,0 +1,15 @@
+.create-month-body {
+    display: flex;
+    flex-direction: column;
+    .create-month-save {
+        margin-top: 40px;
+        width: 100%;
+        button {
+            width: 100%;
+        }
+    }
+    .create-month-error{
+        color: red;
+        display: none;
+    }
+}

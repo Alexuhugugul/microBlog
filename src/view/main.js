@@ -1,17 +1,21 @@
-import checkStringMonth from '../utils/checkStringMonth.js';
+import {checkStringMonth} from '../utils/checkStringMonth.js';
 
 export default class viewMainPage {
 
     constructor() { }
 
-    createListMonths(calendars) {
+    createListMonths(dayss) {
 
         const listMonthsAndYears = {};
         const listMonthsInDropdown = document.querySelector('.main-dropdown_list');
+        const buttonAddMonth = document.createElement("a");
 
-        for (let calendarKey in calendars) {
-            const calendar = calendars[calendarKey];
-            const date = calendar.date;
+        buttonAddMonth.href = `../pages/creatorNewMonth.html`;
+        buttonAddMonth.innerHTML = `<button class="main-add-item">Добавить новый месяц</button>`;
+
+        for (let daysKey in dayss) {
+            const days = dayss[daysKey];
+            const date = days.date;
             const arrDate = date.split("_");
             const month = arrDate[1];
             const year = arrDate[2];
@@ -30,6 +34,7 @@ export default class viewMainPage {
 
             listMonthsInDropdown.append(buttonMonth);
         }
+        listMonthsInDropdown.append(buttonAddMonth);
 
     }
 }

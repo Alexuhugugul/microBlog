@@ -41,15 +41,15 @@ $header-color_hover: rgb(187, 115, 6);
         }
     }
     .month-plan,
-    .month-calendar {
+    .month-days {
         width: 50%;
         display: flex;
         flex-direction: column;
         font-size: 20px;
     }
-    .month-calendar {
+    .month-days {
         align-items: center;
-        .calendarItem {
+        .daysItem {
             width: 290px;
             font-size: 25px;
         }
@@ -62,7 +62,7 @@ $header-color_hover: rgb(187, 115, 6);
 
             }
         }
-        .calendar-select-date {
+        .days-select-date {
             background-color: red;
             border-radius: 50%;
             a {
@@ -76,7 +76,7 @@ $header-color_hover: rgb(187, 115, 6);
     }
 
 
-    .month-button_collections button{
+    .month-button_collections button, .month-button_plan-month button{
          margin-top: 20px;
         background-color: rgb(238, 234, 229);
         border: 1px solid $header-color;
@@ -90,7 +90,7 @@ $header-color_hover: rgb(187, 115, 6);
         height: 48px;
         font-size: 20px;
     }
-    .month-button_collections button:hover {
+    .month-button_collections button:hover , .month-button_plan-month button:hover{
         background-color: $header-color_hover;
         border: 1px solid $header-color_hover;
         color: rgb(238, 234, 229);

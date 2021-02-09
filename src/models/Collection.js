@@ -7,15 +7,10 @@ export default class Collection extends Model{
     select_date = [];
     static _nameAttribute = 'collections';
 
-
-    setAttribute(key, value) {
-        this[key] = value;
-    }
-
     static findAll() {
 
-        const rawKeys = super.getDataByNameAttribute()
-        const keys = []
+        const rawKeys = super.getAll() ?? [];
+        const keys = [];
 
         for (let rawKey of rawKeys) {
             const key = new this()  

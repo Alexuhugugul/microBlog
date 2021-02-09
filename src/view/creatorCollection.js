@@ -2,7 +2,7 @@ import replaceUrl from '../utils/replaceUrl';
 import { actionSetNewCollection } from '../controller/createCollection'
 
 export default class ViewCreatorCollection {
-    creatorCollection(instance) {
+    creatorCollection() {
         const formCollection = document.querySelector(".collection-body");
         const url = window.location.search;
         const date = replaceUrl(url, /[?page=]/g);
@@ -18,7 +18,8 @@ export default class ViewCreatorCollection {
         function submit(event) {
             event.preventDefault();
             const name = formCollection.querySelector(".create-text").value;
-            const value = { date, name }
+            const value = { date, name };
+
             actionSetNewCollection(value)
             window.history.back();
         }

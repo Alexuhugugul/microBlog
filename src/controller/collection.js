@@ -1,5 +1,6 @@
 import ViewCollections from '../view/collection';
 import Collection from '../models/Collection';
+import { collections } from '../adapters/data';
 
 
 export function actionCollections() {
@@ -10,6 +11,28 @@ export function actionCollections() {
 
 }
 
-export function actionDeleteCollection(id) {
-console.log(id)
+export function actionDeleteCollection(value) {
+
+    const collection = new Collection();
+
+    collection.setAttribute('id', value.id);
+    collection.setAttribute('date', value.date);
+    collection.setAttribute('name', value.name);
+    collection.setAttribute('select_date', value.select_date);
+
+    collection.deleteById();
+
+}
+
+export function actionSaveCollection(value) {
+
+    const collection = new Collection();
+
+    collection.setAttribute('id', value.id);
+    collection.setAttribute('date', value.date);
+    collection.setAttribute('name', value.name);
+    collection.setAttribute('select_date', value.select_date);
+
+    collection.save();
+
 }

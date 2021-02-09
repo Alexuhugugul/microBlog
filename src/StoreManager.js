@@ -1,74 +1,29 @@
-import localStorageManager from './interfaces/localStorageManager';
+import localStorageManager from './adapters/localStorageManager';
 
-// class StoreManager {
-//     constructor() {
-//         this.bd = null;
-//         this.initBD();
-//     }
+class StoreManager {
 
-//     initBD() {
-//         this.bd = new localStorageManager;
-//         this.bd.setItem();
-//     }
+    constructor() {
+        this.db = new localStorageManager;
+    }
 
-//     viewData() {
-//         this.bd.consoleView();
-//     }
+    save(value,nameTable) {
+     return this.db.save(value,nameTable);
+    }
 
-//     getItem(id) {
-//         return this.bd.getItem(id)
-//     }
+    deleteById(id,nameTable){
+        return this.db.deleteById(id,nameTable);
+    }
 
-//     getAllItem() {
-//         return this.bd.getAllItem()
-//     }
+    getById(id,nameTable){
+        return this.db.getById(id,nameTable);
+    }
 
-//     getDataCalendars(){
-//         return this.bd.getDataCalendars();
-//     }
+    getAll(nameTable){
+        return this.db.getAll(nameTable);
+    }
 
-//     getDataKeys(){
-//         return this.bd.getDataKeys();
-//     }
+}
 
-//     loadKeyById ( id ) {
-//         return this.bd.loadKeyById();
-//     }
+const storeManager = new StoreManager();
 
-//     getDataCollections(){
-//         return this.bd.getDataCollections();
-//     }
-
-//     setCalendar(value) {
-//         return this.bd.setItemCalendar(value);
-//     }
-
-//     setTask(date,text,oldText){
-//         return this.bd.setItemTask(date,text,oldText);
-//     }
-
-//     deleteTask(date,text){
-//         return this.bd.deleteItemTask(date,text)
-//     }
-//     setDateInCollections(date,name,selectedDate){
-//         return this.bd.setDateInCollections(date,name,selectedDate)
-//     }
-//     deleteDateInCollections(date,name,selectedDate){
-//         return this.bd.deleteDateInCollections(date,name,selectedDate)
-//     }
-//     setNewCollection(date,name){
-//         return this.bd.setNewCollection(date,name)
-//     }
-//     deleteCollection(date,name){
-//         return this.bd.deleteCollection(date,name)
-//     }
-
-//     renameCollection(date,name,oldName){
-//         return this.bd.renameCollection(date,name,oldName)
-//     }
-// }
-
-// const storeManager = new StoreManager();
-
-const storeManager = new localStorageManager();
 export default storeManager;
