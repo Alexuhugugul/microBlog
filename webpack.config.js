@@ -53,6 +53,7 @@ module.exports = {
         new HtmlWebpackPlugin({ template: './src/pages/tasksMonth.html', filename: 'pages/tasksMonth?page=' }),
         new HtmlWebpackPlugin({ template: './src/pages/creatorNewTaskForMonth.html', filename: 'pages/creatorNewTaskForMonth?page=' }),
         new HtmlWebpackPlugin({ template: './src/pages/planFuture.html', filename: 'pages/planFuture.html' }),
+        new HtmlWebpackPlugin({ template: './src/pages/creatorNewTaskForYears.html', filename: 'pages/creatorNewTaskForYears.html' }),
         new HtmlWebpackPlugin({ template: './src/index.html' }),
     ]
 

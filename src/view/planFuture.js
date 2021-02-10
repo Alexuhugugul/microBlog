@@ -2,14 +2,15 @@ import replaceUrl from '../utils/replaceUrl';
 import { hide, show } from '../utils/showAndHideElement';
 import { checkStringMonth } from '../utils/checkStringMonth';
 import { actionUpdateTask, actionDeleteTask } from '../controller/planFuture';
-
+const url = window.location.search;
+const datePage = replaceUrl(url, /[?page=,.html]/g);
 
 export default class ViewPlanFuture {
     createListTasksPlanFuture(keys, tasksPlan) {
         const listTask = document.querySelector(".plan-future-body");
-        // const createTask = document.querySelector(".task-month-button-create");
+        const createTask = document.querySelector(".plan-future-body-button-create");
 
-        // createTask.href = `/pages/creatorNewTaskForMonth?page=${datePage}`
+        createTask.href = `/pages/creatorNewTaskForYears.html`
         tasksPlan.forEach(task => {
 
             const blockTask = document.createElement("div");

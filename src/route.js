@@ -8,7 +8,8 @@ import { actionTasksMonth } from './controller/tasksMonth';
 import { actionCreateTasksForMonth } from './controller/createNewTaskForMonth';
 import { actionCollections } from './controller/collection.js';
 import { actionCreateCollectionsPage } from './controller/createCollection.js';
-import {actionPlanFuture} from './controller/planFuture';
+import { actionPlanFuture } from './controller/planFuture';
+import {actionCreateTasksForYears} from './controller/createNewTaskForYears';
 
 export default function routes() {
     const url = window.location
@@ -46,6 +47,9 @@ export default function routes() {
             break;
         case "/pages/planFuture.html":
             actionPlanFuture()
+            break;
+        case "/pages/creatorNewTaskForYears.html":
+            actionCreateTasksForYears()
             break;
         default:
             console.log('route /');
